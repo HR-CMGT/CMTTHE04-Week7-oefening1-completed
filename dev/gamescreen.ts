@@ -1,33 +1,40 @@
-import { GameObject } from "./gameobject.js"
+import { Background } from "./background.js"
 import { Game } from "./game.js"
+import { GameObject } from "./gameobject.js"
 import { Robot } from "./robot.js"
 
-export class Gamescreen extends GameObject {
+export class GameScreen extends GameObject {
 
     private robots:Robot[] = []
-    private game:Game
-    
-    constructor(game:Game) {
-        super("gamescreen")
-        this.game = game
-        const text = document.createElement("div")
-        this.element.appendChild(text)
-        text.innerText = "Score: 0"
+    private background: Background
+    private game : Game
 
-        this.robots.push(new Robot(this.game), new Robot(this.game))
+    constructor(g:Game) {
+        super("gamescreen")
+        this.game = g
+        const text = document.createElement("instructions")
+        this.element.appendChild(text)
+        text.innerText = "Click the robots to remove them!"
+        
+        this.background = new Background()
+
+        this.robots.push(new Robot(this), new Robot(this), new Robot(this), new Robot(this), new Robot(this))
+    }
+
+    public removeRobot(robot : Robot){
+        this.robots = this.robots.filter(rob => rob != robot)
+        // 
+        if (this.robots.length == 0) {
+            this.remove()
+            this.game.showEndScreen()
+        }
     }
 
     public update(){
+        this.background.update()
         for (let o of this.robots) {
             o.update()
         }
-    }
-
-    public remove() {
-        for (let o of this.robots) {
-            o.remove()
-        }
-        super.remove()
     }
 
 }

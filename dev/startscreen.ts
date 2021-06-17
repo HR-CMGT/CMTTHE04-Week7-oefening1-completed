@@ -1,11 +1,14 @@
 import { GameObject } from "./gameobject.js"
 import { Game } from "./game.js"
-import { Gamescreen } from "./gamescreen.js"
 
-export class Startscreen extends GameObject {
+export class StartScreen extends GameObject {
+
+    private game : Game
     
     constructor(game:Game) {
         super("startscreen")
+
+        this.game = game
         
         const text = document.createElement("div")
         const btn = document.createElement("button")
@@ -16,10 +19,12 @@ export class Startscreen extends GameObject {
         text.innerText = "Robot Clicker"
         btn.innerText = "START GAME"
         
-        btn.addEventListener("click", () => {
-            let newScreen = new Gamescreen(game)
-            game.switchScreen(newScreen)
-        })
+        btn.addEventListener("click", () => this.gotoGameScreen())
+    }
+
+    private gotoGameScreen(){
+        this.remove()
+        this.game.showGameScreen()
     }
 
 }

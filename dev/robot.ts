@@ -1,23 +1,29 @@
 import { GameObject } from "./gameobject.js"
-import { Game } from "./game.js"
-import { Endscreen } from "./endscreen.js"
+import { GameScreen } from "./gamescreen.js"
 
 export class Robot extends GameObject {
 
-    private x : number = Math.random() * 600
-    private y : number = Math.random() * 450
-    private game:Game
+    private speed : number = Math.random() * 3 + 2
+    private screen : GameScreen
 
-    constructor(game:Game){
+    constructor(screen : GameScreen){
         super("robot")
-        this.game = game
-        this.element.addEventListener("click", ()=>this.game.switchScreen(new Endscreen(this.game)))
+        this.screen = screen
+        this.x = Math.random() * 600
+        this.y = Math.random() * 450 + 100
+        this.element.addEventListener("click", ()=>this.removeMe())
+    }
+
+    private removeMe(){
+        this.remove()
+        this.screen.removeRobot(this)
     }
 
     public update(): void{
-        this.x += 3
+        this.x += this.speed
         if(this.x > window.innerWidth) {
             this.x = -100
+            this.y = Math.random() * 450 + 100
         }
         this.element.style.transform = `translate(${this.x}px, ${this.y}px)`
     }

@@ -1,23 +1,28 @@
+import { EndScreen } from "./endscreen.js"
 import { GameObject } from "./gameobject.js"
-import { Startscreen } from "./startscreen.js"
+import { GameScreen } from "./gamescreen.js"
+import { StartScreen } from "./startscreen.js"
 
 export class Game {
 
-    private currentScreen:GameObject
+    private screen:GameObject
 
     constructor(){
-        this.currentScreen = new Startscreen(this)
+        this.screen = new StartScreen(this)
         this.gameLoop()
     }
 
-    private gameLoop(){
-        this.currentScreen.update()
-        requestAnimationFrame(()=>this.gameLoop())
+    public showGameScreen(){
+        this.screen = new GameScreen(this)
     }
 
-    public switchScreen(screen:GameObject) {
-        this.currentScreen.remove()
-        this.currentScreen = screen
+    public showEndScreen(){
+        this.screen = new EndScreen(this)
+    }
+
+    private gameLoop(){
+        this.screen.update()
+        requestAnimationFrame(()=>this.gameLoop())
     }
 }
 

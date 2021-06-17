@@ -1,8 +1,7 @@
 import { GameObject } from "./gameobject.js"
 import { Game } from "./game.js"
-import { Startscreen } from "./startscreen.js"
 
-export class Endscreen extends GameObject {
+export class EndScreen extends GameObject {
 
     constructor(game: Game) {
         super("endscreen")
@@ -16,6 +15,6 @@ export class Endscreen extends GameObject {
         text.innerText = "Game Over"
         btn.innerText = "Back to start"
 
-        btn.addEventListener("click", () => game.switchScreen(new Startscreen(game)))
+        btn.addEventListener("click", () => console.log("this is the end"))
     }
 }
