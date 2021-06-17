@@ -23,55 +23,7 @@ Het is belangrijk dat al deze classes een update en remove functie hebben.
 
 <br>
 
-## Switch screen
 
-Game.ts krijgt een property om te onthouden wat het huidige scherm is. De `switchScreen` functie verwijdert het vorige scherm en plaatst dan een nieuw scherm.
-
-```typescript
-export class Game {
-
-    private currentScreen:GameObject
-
-    constructor(){
-        this.currentScreen = new Startscreen(this)
-        this.gameLoop()
-    }
-
-    private gameLoop(){
-        this.currentScreen.update()
-        requestAnimationFrame(()=>this.gameLoop())
-    }
-
-    public switchScreen(screen:GameObject) {
-        this.currentScreen.remove()
-        this.currentScreen = screen
-    }
-}
-```
-
-<br>
-
-## Switch sreen aanroepen vanuit een andere class
-
-Om `switchSreen` aan te kunnen roepen vanuit het startscherm, moet het startscherm eerst een verwijzing naar de game krijgen.
-
-```typescript
-export class Startscreen extends GameObject {
-    private game:Game
-    constructor(g:Game) {
-        super("startscreen")
-        this.game = g
-    }
-}
-```
-Vervolgens kan je van scherm wisselen door een `new Gamescreen` scherm aan te maken en dat aan de game te geven!
-
-```typescript
-let newScreen = new Gamescreen(game)
-this.game.switchScreen(newScreen)
-```
-
-<br>
 
 ## DOM Objecten verwijderen
 
