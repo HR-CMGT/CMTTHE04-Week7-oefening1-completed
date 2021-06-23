@@ -8,8 +8,12 @@ export class Game {
     private screen:GameObject
 
     constructor(){
-        this.screen = new StartScreen(this)
+        this.showStartScreen()
         this.gameLoop()
+    }
+
+    public showStartScreen(){
+        this.screen = new StartScreen(this)
     }
 
     public showGameScreen(){

@@ -3,8 +3,11 @@ import { Game } from "./game.js"
 
 export class EndScreen extends GameObject {
 
+    private game :Game
+
     constructor(game: Game) {
         super("endscreen")
+        this.game = game
 
         const text = document.createElement("div")
         const btn = document.createElement("button")
@@ -15,6 +18,11 @@ export class EndScreen extends GameObject {
         text.innerText = "Game Over"
         btn.innerText = "Back to start"
 
-        btn.addEventListener("click", () => console.log("this is the end"))
+        btn.addEventListener("click", () => this.gotoStartScreen())
+    }
+
+    private gotoStartScreen() {
+        this.remove()
+        this.game.showStartScreen()
     }
 }

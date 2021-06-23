@@ -37,4 +37,9 @@ export class GameScreen extends GameObject {
         }
     }
 
+    public remove(){
+        this.background.remove()
+        super.remove()
+    }
+
 }
